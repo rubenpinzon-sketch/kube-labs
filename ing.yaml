@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: api.example.local
+    http:
+      paths:
+      - path: /community/
+        pathType: Prefix
+        backend:
+          service:
+            name: community-api-svc
+            port:
+              number: 80
+      - path: /enterprise/
+        pathType: Prefix
+        backend:
+          service:
+            name: enterprise-api-svc
+            port:
+              number: 80
